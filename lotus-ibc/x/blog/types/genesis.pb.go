@@ -25,7 +25,10 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 // GenesisState defines the blog module's genesis state.
 type GenesisState struct {
 	// this line is used by starport scaffolding # genesis/proto/state
-	PortId string `protobuf:"bytes,1,opt,name=port_id,json=portId,proto3" json:"port_id,omitempty"`
+	TimedoutPost *TimedoutPost `protobuf:"bytes,4,opt,name=timedoutPost,proto3" json:"timedoutPost,omitempty"`
+	SendPost     *SendPost     `protobuf:"bytes,3,opt,name=sendPost,proto3" json:"sendPost,omitempty"`
+	Post         *Post         `protobuf:"bytes,2,opt,name=post,proto3" json:"post,omitempty"`
+	PortId       string        `protobuf:"bytes,1,opt,name=port_id,json=portId,proto3" json:"port_id,omitempty"`
 }
 
 func (m *GenesisState) Reset()         { *m = GenesisState{} }
@@ -61,6 +64,27 @@ func (m *GenesisState) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_GenesisState proto.InternalMessageInfo
 
+func (m *GenesisState) GetTimedoutPost() *TimedoutPost {
+	if m != nil {
+		return m.TimedoutPost
+	}
+	return nil
+}
+
+func (m *GenesisState) GetSendPost() *SendPost {
+	if m != nil {
+		return m.SendPost
+	}
+	return nil
+}
+
+func (m *GenesisState) GetPost() *Post {
+	if m != nil {
+		return m.Post
+	}
+	return nil
+}
+
 func (m *GenesisState) GetPortId() string {
 	if m != nil {
 		return m.PortId
@@ -75,18 +99,24 @@ func init() {
 func init() { proto.RegisterFile("blog/genesis.proto", fileDescriptor_087544457035c34f) }
 
 var fileDescriptor_087544457035c34f = []byte{
-	// 170 bytes of a gzipped FileDescriptorProto
+	// 272 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x4a, 0xca, 0xc9, 0x4f,
 	0xd7, 0x4f, 0x4f, 0xcd, 0x4b, 0x2d, 0xce, 0x2c, 0xd6, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x92,
 	0x2a, 0x48, 0x2c, 0xc8, 0xcc, 0xc9, 0xc9, 0xcf, 0x33, 0xb3, 0x30, 0x34, 0xd1, 0xcb, 0xc9, 0x2f,
-	0x29, 0x2d, 0xce, 0x4c, 0x4a, 0xd6, 0x03, 0xa9, 0x54, 0x52, 0xe7, 0xe2, 0x71, 0x87, 0x28, 0x0e,
-	0x2e, 0x49, 0x2c, 0x49, 0x15, 0x12, 0xe7, 0x62, 0x2f, 0xc8, 0x2f, 0x2a, 0x89, 0xcf, 0x4c, 0x91,
-	0x60, 0x54, 0x60, 0xd4, 0xe0, 0x0c, 0x62, 0x03, 0x71, 0x3d, 0x53, 0x9c, 0x3c, 0x4e, 0x3c, 0x92,
-	0x63, 0xbc, 0xf0, 0x48, 0x8e, 0xf1, 0xc1, 0x23, 0x39, 0xc6, 0x09, 0x8f, 0xe5, 0x18, 0x2e, 0x3c,
-	0x96, 0x63, 0xb8, 0xf1, 0x58, 0x8e, 0x21, 0x4a, 0x2f, 0x3d, 0xb3, 0x24, 0xa3, 0x34, 0x49, 0x2f,
-	0x39, 0x3f, 0x57, 0x1f, 0xd9, 0x26, 0x7d, 0xb0, 0x4d, 0xba, 0x99, 0x49, 0xc9, 0xfa, 0x15, 0xfa,
-	0x60, 0x67, 0x95, 0x54, 0x16, 0xa4, 0x16, 0x27, 0xb1, 0x81, 0x5d, 0x65, 0x0c, 0x08, 0x00, 0x00,
-	0xff, 0xff, 0x56, 0x46, 0xcc, 0x4f, 0xab, 0x00, 0x00, 0x00,
+	0x29, 0x2d, 0xce, 0x4c, 0x4a, 0xd6, 0x03, 0xa9, 0x94, 0x92, 0x00, 0xab, 0x2f, 0xc9, 0xcc, 0x4d,
+	0x4d, 0xc9, 0x2f, 0x2d, 0x89, 0x2f, 0xc8, 0x2f, 0x2e, 0x81, 0xe8, 0x92, 0x12, 0x01, 0xcb, 0x14,
+	0xa7, 0xe6, 0xa5, 0x20, 0x8b, 0xf2, 0x83, 0x45, 0x11, 0x02, 0x4a, 0x6f, 0x19, 0xb9, 0x78, 0xdc,
+	0x21, 0xd6, 0x05, 0x97, 0x24, 0x96, 0xa4, 0x0a, 0xf9, 0x70, 0xf1, 0xc0, 0x8c, 0x0b, 0xc8, 0x2f,
+	0x2e, 0x91, 0x60, 0x51, 0x60, 0xd4, 0xe0, 0x36, 0xd2, 0xd0, 0xc3, 0xed, 0x08, 0xbd, 0x10, 0x24,
+	0xf5, 0x41, 0x28, 0xba, 0x85, 0x1c, 0xb8, 0x38, 0x40, 0x4e, 0x00, 0x9b, 0xc4, 0x0c, 0x36, 0x49,
+	0x05, 0x9f, 0x49, 0xc1, 0x50, 0xb5, 0x41, 0x70, 0x5d, 0x42, 0x26, 0x5c, 0x2c, 0x20, 0xe7, 0x4a,
+	0x30, 0x81, 0x75, 0x2b, 0xe0, 0xd3, 0x0d, 0xd6, 0x09, 0x56, 0x2d, 0x24, 0xce, 0xc5, 0x5e, 0x90,
+	0x5f, 0x54, 0x12, 0x9f, 0x99, 0x22, 0xc1, 0xa8, 0xc0, 0xa8, 0xc1, 0x19, 0xc4, 0x06, 0xe2, 0x7a,
+	0xa6, 0x38, 0x79, 0x9c, 0x78, 0x24, 0xc7, 0x78, 0xe1, 0x91, 0x1c, 0xe3, 0x83, 0x47, 0x72, 0x8c,
+	0x13, 0x1e, 0xcb, 0x31, 0x5c, 0x78, 0x2c, 0xc7, 0x70, 0xe3, 0xb1, 0x1c, 0x43, 0x94, 0x5e, 0x7a,
+	0x66, 0x49, 0x46, 0x69, 0x92, 0x5e, 0x72, 0x7e, 0xae, 0x3e, 0xb2, 0x25, 0xfa, 0x60, 0x4b, 0x74,
+	0x33, 0x93, 0x92, 0xf5, 0x2b, 0xf4, 0x21, 0xc1, 0x5d, 0x59, 0x90, 0x5a, 0x9c, 0xc4, 0x06, 0x0e,
+	0x40, 0x63, 0x40, 0x00, 0x00, 0x00, 0xff, 0xff, 0x95, 0x54, 0x56, 0x3f, 0xb3, 0x01, 0x00, 0x00,
 }
 
 func (m *GenesisState) Marshal() (dAtA []byte, err error) {
@@ -109,6 +139,42 @@ func (m *GenesisState) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
+	if m.TimedoutPost != nil {
+		{
+			size, err := m.TimedoutPost.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintGenesis(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x22
+	}
+	if m.SendPost != nil {
+		{
+			size, err := m.SendPost.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintGenesis(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x1a
+	}
+	if m.Post != nil {
+		{
+			size, err := m.Post.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintGenesis(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
 	if len(m.PortId) > 0 {
 		i -= len(m.PortId)
 		copy(dAtA[i:], m.PortId)
@@ -138,6 +204,18 @@ func (m *GenesisState) Size() (n int) {
 	_ = l
 	l = len(m.PortId)
 	if l > 0 {
+		n += 1 + l + sovGenesis(uint64(l))
+	}
+	if m.Post != nil {
+		l = m.Post.Size()
+		n += 1 + l + sovGenesis(uint64(l))
+	}
+	if m.SendPost != nil {
+		l = m.SendPost.Size()
+		n += 1 + l + sovGenesis(uint64(l))
+	}
+	if m.TimedoutPost != nil {
+		l = m.TimedoutPost.Size()
 		n += 1 + l + sovGenesis(uint64(l))
 	}
 	return n
@@ -209,6 +287,114 @@ func (m *GenesisState) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			m.PortId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Post", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGenesis
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Post == nil {
+				m.Post = &Post{}
+			}
+			if err := m.Post.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SendPost", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGenesis
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.SendPost == nil {
+				m.SendPost = &SendPost{}
+			}
+			if err := m.SendPost.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TimedoutPost", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGenesis
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.TimedoutPost == nil {
+				m.TimedoutPost = &TimedoutPost{}
+			}
+			if err := m.TimedoutPost.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex

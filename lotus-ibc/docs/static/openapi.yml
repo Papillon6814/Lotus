@@ -19475,6 +19475,131 @@ paths:
           format: uint64
       tags:
         - Query
+  /papillon6814/lotusibc/blog/post:
+    get:
+      summary: Queries a post by index.
+      operationId: Papillon6814LotusibcBlogPost
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              Post:
+                type: object
+                properties:
+                  creator:
+                    type: string
+                  title:
+                    type: string
+                  content:
+                    type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    typeUrl:
+                      type: string
+                    value:
+                      type: string
+                      format: byte
+      tags:
+        - Query
+  /papillon6814/lotusibc/blog/sendPost:
+    get:
+      summary: Queries a sendPost by index.
+      operationId: Papillon6814LotusibcBlogSendPost
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              SendPost:
+                type: object
+                properties:
+                  creator:
+                    type: string
+                  postID:
+                    type: string
+                  title:
+                    type: string
+                  chain:
+                    type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    typeUrl:
+                      type: string
+                    value:
+                      type: string
+                      format: byte
+      tags:
+        - Query
+  /papillon6814/lotusibc/blog/timedoutPost:
+    get:
+      summary: Queries a timedoutPost by index.
+      operationId: Papillon6814LotusibcBlogTimedoutPost
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              TimedoutPost:
+                type: object
+                properties:
+                  creator:
+                    type: string
+                  title:
+                    type: string
+                  chain:
+                    type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    typeUrl:
+                      type: string
+                    value:
+                      type: string
+                      format: byte
+      tags:
+        - Query
 definitions:
   cosmos.bank.v1beta1.DenomUnit:
     type: object
@@ -29761,3 +29886,72 @@ definitions:
     description: |-
       Version defines the versioning scheme used to negotiate the IBC verison in
       the connection handshake.
+  papillon6814.lotusibc.blog.MsgSendIbcPostResponse:
+    type: object
+  papillon6814.lotusibc.blog.Post:
+    type: object
+    properties:
+      creator:
+        type: string
+      title:
+        type: string
+      content:
+        type: string
+  papillon6814.lotusibc.blog.QueryGetPostResponse:
+    type: object
+    properties:
+      Post:
+        type: object
+        properties:
+          creator:
+            type: string
+          title:
+            type: string
+          content:
+            type: string
+  papillon6814.lotusibc.blog.QueryGetSendPostResponse:
+    type: object
+    properties:
+      SendPost:
+        type: object
+        properties:
+          creator:
+            type: string
+          postID:
+            type: string
+          title:
+            type: string
+          chain:
+            type: string
+  papillon6814.lotusibc.blog.QueryGetTimedoutPostResponse:
+    type: object
+    properties:
+      TimedoutPost:
+        type: object
+        properties:
+          creator:
+            type: string
+          title:
+            type: string
+          chain:
+            type: string
+  papillon6814.lotusibc.blog.SendPost:
+    type: object
+    properties:
+      creator:
+        type: string
+      postID:
+        type: string
+      title:
+        type: string
+      chain:
+        type: string
+  papillon6814.lotusibc.blog.TimedoutPost:
+    type: object
+    properties:
+      creator:
+        type: string
+      title:
+        type: string
+      chain:
+        type: string

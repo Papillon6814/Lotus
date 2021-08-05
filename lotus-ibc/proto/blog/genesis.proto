@@ -2,11 +2,17 @@ syntax = "proto3";
 package papillon6814.lotusibc.blog;
 
 // this line is used by starport scaffolding # genesis/proto/import
+import "blog/timedout_post.proto";
+import "blog/send_post.proto";
+import "blog/post.proto";
 
 option go_package = "github.com/papillon6814/lotus-ibc/x/blog/types";
 
 // GenesisState defines the blog module's genesis state.
 message GenesisState {
     // this line is used by starport scaffolding # genesis/proto/state
+		TimedoutPost timedoutPost = 4; // this line is used by starport scaffolding # genesis/proto/stateField
+		SendPost sendPost = 3; // this line is used by starport scaffolding # genesis/proto/stateField
+		Post post = 2; // this line is used by starport scaffolding # genesis/proto/stateField
     string port_id = 1; // this line is used by starport scaffolding # genesis/proto/stateField
 }

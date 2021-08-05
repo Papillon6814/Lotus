@@ -31,3 +31,15 @@ var (
 func KeyPrefix(p string) []byte {
 	return []byte(p)
 }
+
+const (
+	PostKey = "Post-value-"
+)
+
+const (
+	SendPostKey = "SendPost-value-"
+)
+
+const (
+	TimedoutPostKey = "TimedoutPost-value-"
+)

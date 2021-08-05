@@ -8,6 +8,18 @@ option go_package = "github.com/papillon6814/lotus-ibc/x/blog/types";
 // Msg defines the Msg service.
 service Msg {
     // this line is used by starport scaffolding # proto/tx/rpc
+  rpc SendIbcPost(MsgSendIbcPost) returns (MsgSendIbcPostResponse);
 }
 
 // this line is used by starport scaffolding # proto/tx/message
+message MsgSendIbcPost {
+  string sender = 1;
+  string port = 2;
+  string channelID = 3;
+  uint64 timeoutTimestamp = 4;
+  string title = 5;
+  string contenet = 6;
+}
+
+message MsgSendIbcPostResponse {
+}
