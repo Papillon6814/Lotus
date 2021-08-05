@@ -18,7 +18,8 @@ message NoData {
 // IbcPostPacketData defines a struct for the packet payload
 message IbcPostPacketData {
 	  string title = 1;
-  string contenet = 2;
+    string contenet = 2;
+    string creator = 3;
 }
 
 // IbcPostPacketAck defines a struct for the packet acknowledgment
