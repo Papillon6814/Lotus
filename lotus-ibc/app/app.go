@@ -84,6 +84,9 @@ import (
 	tmjson "github.com/tendermint/tendermint/libs/json"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
+	blogmodule "github.com/papillon6814/lotus-ibc/x/blog"
+	blogmodulekeeper "github.com/papillon6814/lotus-ibc/x/blog/keeper"
+	blogmoduletypes "github.com/papillon6814/lotus-ibc/x/blog/types"
 	lotusibcmodule "github.com/papillon6814/lotus-ibc/x/lotusibc"
 	lotusibcmodulekeeper "github.com/papillon6814/lotus-ibc/x/lotusibc/keeper"
 	lotusibcmoduletypes "github.com/papillon6814/lotus-ibc/x/lotusibc/types"
@@ -138,6 +141,7 @@ var (
 		transfer.AppModuleBasic{},
 		vesting.AppModuleBasic{},
 		// this line is used by starport scaffolding # stargate/app/moduleBasic
+		blogmodule.AppModuleBasic{},
 		lotusibcmodule.AppModuleBasic{},
 	)
 
@@ -206,6 +210,8 @@ type App struct {
 	ScopedTransferKeeper capabilitykeeper.ScopedKeeper
 
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
+	ScopedBlogKeeper capabilitykeeper.ScopedKeeper
+	BlogKeeper       blogmodulekeeper.Keeper
 
 	LotusibcKeeper lotusibcmodulekeeper.Keeper
 
@@ -242,6 +248,7 @@ func New(
 		govtypes.StoreKey, paramstypes.StoreKey, ibchost.StoreKey, upgradetypes.StoreKey,
 		evidencetypes.StoreKey, ibctransfertypes.StoreKey, capabilitytypes.StoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
+		blogmoduletypes.StoreKey,
 		lotusibcmoduletypes.StoreKey,
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
@@ -345,12 +352,25 @@ func New(
 	)
 	lotusibcModule := lotusibcmodule.NewAppModule(appCodec, app.LotusibcKeeper)
 
+	scopedBlogKeeper := app.CapabilityKeeper.ScopeToModule(blogmoduletypes.ModuleName)
+	app.ScopedBlogKeeper = scopedBlogKeeper
+	app.BlogKeeper = *blogmodulekeeper.NewKeeper(
+		appCodec,
+		keys[blogmoduletypes.StoreKey],
+		keys[blogmoduletypes.MemStoreKey],
+		app.IBCKeeper.ChannelKeeper,
+		&app.IBCKeeper.PortKeeper,
+		scopedBlogKeeper,
+	)
+	blogModule := blogmodule.NewAppModule(appCodec, app.BlogKeeper)
+
 	// this line is used by starport scaffolding # stargate/app/keeperDefinition
 
 	// Create static IBC router, add transfer route, then set and seal it
 	ibcRouter := porttypes.NewRouter()
 	ibcRouter.AddRoute(ibctransfertypes.ModuleName, transferModule)
 	// this line is used by starport scaffolding # ibc/app/router
+	ibcRouter.AddRoute(blogmoduletypes.ModuleName, blogModule)
 	app.IBCKeeper.SetRouter(ibcRouter)
 
 	/****  Module Options ****/
@@ -383,6 +403,7 @@ func New(
 		params.NewAppModule(app.ParamsKeeper),
 		transferModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
+		blogModule,
 		lotusibcModule,
 	)
 
@@ -417,6 +438,7 @@ func New(
 		evidencetypes.ModuleName,
 		ibctransfertypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
+		blogmoduletypes.ModuleName,
 		lotusibcmoduletypes.ModuleName,
 	)
 
@@ -605,6 +627,7 @@ func initParamsKeeper(appCodec codec.BinaryMarshaler, legacyAmino *codec.LegacyA
 	paramsKeeper.Subspace(ibctransfertypes.ModuleName)
 	paramsKeeper.Subspace(ibchost.ModuleName)
 	// this line is used by starport scaffolding # stargate/app/paramSubspace
+	paramsKeeper.Subspace(blogmoduletypes.ModuleName)
 	paramsKeeper.Subspace(lotusibcmoduletypes.ModuleName)
 
 	return paramsKeeper
