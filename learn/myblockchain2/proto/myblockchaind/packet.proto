@@ -1,0 +1,16 @@
+syntax = "proto3";
+package papillon6814.myblockchain2.myblockchaind;
+
+option go_package = "github.com/papillon6814/myblockchain2/x/myblockchaind/types";
+
+message MyblockchaindPacketData {
+    oneof packet {
+        NoData noData = 1;
+        // this line is used by starport scaffolding # ibc/packet/proto/field
+    }
+}
+
+message NoData {
+}
+
+// this line is used by starport scaffolding # ibc/packet/proto/message
