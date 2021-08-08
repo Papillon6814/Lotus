@@ -4,15 +4,21 @@ import { StdFee } from "@cosmjs/launchpad";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgUpdatePoll } from "./types/voter/tx";
-import { MsgCreatePoll } from "./types/voter/tx";
 import { MsgDeletePoll } from "./types/voter/tx";
+import { MsgUpdateVote } from "./types/voter/tx";
+import { MsgDeleteVote } from "./types/voter/tx";
+import { MsgUpdatePoll } from "./types/voter/tx";
+import { MsgCreateVote } from "./types/voter/tx";
+import { MsgCreatePoll } from "./types/voter/tx";
 
 
 const types = [
-  ["/papillon6814.voter.voter.MsgUpdatePoll", MsgUpdatePoll],
-  ["/papillon6814.voter.voter.MsgCreatePoll", MsgCreatePoll],
   ["/papillon6814.voter.voter.MsgDeletePoll", MsgDeletePoll],
+  ["/papillon6814.voter.voter.MsgUpdateVote", MsgUpdateVote],
+  ["/papillon6814.voter.voter.MsgDeleteVote", MsgDeleteVote],
+  ["/papillon6814.voter.voter.MsgUpdatePoll", MsgUpdatePoll],
+  ["/papillon6814.voter.voter.MsgCreateVote", MsgCreateVote],
+  ["/papillon6814.voter.voter.MsgCreatePoll", MsgCreatePoll],
   
 ];
 export const MissingWalletError = new Error("wallet is required");
@@ -41,9 +47,12 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
-    msgUpdatePoll: (data: MsgUpdatePoll): EncodeObject => ({ typeUrl: "/papillon6814.voter.voter.MsgUpdatePoll", value: data }),
-    msgCreatePoll: (data: MsgCreatePoll): EncodeObject => ({ typeUrl: "/papillon6814.voter.voter.MsgCreatePoll", value: data }),
     msgDeletePoll: (data: MsgDeletePoll): EncodeObject => ({ typeUrl: "/papillon6814.voter.voter.MsgDeletePoll", value: data }),
+    msgUpdateVote: (data: MsgUpdateVote): EncodeObject => ({ typeUrl: "/papillon6814.voter.voter.MsgUpdateVote", value: data }),
+    msgDeleteVote: (data: MsgDeleteVote): EncodeObject => ({ typeUrl: "/papillon6814.voter.voter.MsgDeleteVote", value: data }),
+    msgUpdatePoll: (data: MsgUpdatePoll): EncodeObject => ({ typeUrl: "/papillon6814.voter.voter.MsgUpdatePoll", value: data }),
+    msgCreateVote: (data: MsgCreateVote): EncodeObject => ({ typeUrl: "/papillon6814.voter.voter.MsgCreateVote", value: data }),
+    msgCreatePoll: (data: MsgCreatePoll): EncodeObject => ({ typeUrl: "/papillon6814.voter.voter.MsgCreatePoll", value: data }),
     
   };
 };
