@@ -4,15 +4,15 @@ import { StdFee } from "@cosmjs/launchpad";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgDeletePoll } from "./types/voter/tx";
 import { MsgUpdatePoll } from "./types/voter/tx";
 import { MsgCreatePoll } from "./types/voter/tx";
+import { MsgDeletePoll } from "./types/voter/tx";
 
 
 const types = [
-  ["/papillon6814.voter.voter.MsgDeletePoll", MsgDeletePoll],
   ["/papillon6814.voter.voter.MsgUpdatePoll", MsgUpdatePoll],
   ["/papillon6814.voter.voter.MsgCreatePoll", MsgCreatePoll],
+  ["/papillon6814.voter.voter.MsgDeletePoll", MsgDeletePoll],
   
 ];
 export const MissingWalletError = new Error("wallet is required");
@@ -41,9 +41,9 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
-    msgDeletePoll: (data: MsgDeletePoll): EncodeObject => ({ typeUrl: "/papillon6814.voter.voter.MsgDeletePoll", value: data }),
     msgUpdatePoll: (data: MsgUpdatePoll): EncodeObject => ({ typeUrl: "/papillon6814.voter.voter.MsgUpdatePoll", value: data }),
     msgCreatePoll: (data: MsgCreatePoll): EncodeObject => ({ typeUrl: "/papillon6814.voter.voter.MsgCreatePoll", value: data }),
+    msgDeletePoll: (data: MsgDeletePoll): EncodeObject => ({ typeUrl: "/papillon6814.voter.voter.MsgDeletePoll", value: data }),
     
   };
 };

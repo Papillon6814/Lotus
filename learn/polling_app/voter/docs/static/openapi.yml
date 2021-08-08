@@ -19498,7 +19498,9 @@ paths:
                     title:
                       type: string
                     options:
-                      type: string
+                      type: array
+                      items:
+                        type: string
               pagination:
                 type: object
                 properties:
@@ -19616,7 +19618,9 @@ paths:
                   title:
                     type: string
                   options:
-                    type: string
+                    type: array
+                    items:
+                      type: string
         default:
           description: An unexpected error response.
           schema:
@@ -29952,7 +29956,9 @@ definitions:
       title:
         type: string
       options:
-        type: string
+        type: array
+        items:
+          type: string
   papillon6814.voter.voter.QueryAllPollResponse:
     type: object
     properties:
@@ -29969,7 +29975,9 @@ definitions:
             title:
               type: string
             options:
-              type: string
+              type: array
+              items:
+                type: string
       pagination:
         type: object
         properties:
@@ -30009,4 +30017,6 @@ definitions:
           title:
             type: string
           options:
-            type: string
+            type: array
+            items:
+              type: string
