@@ -2,19 +2,19 @@
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
+import { MsgCreatePoll } from "./types/voter/tx";
+import { MsgUpdatePoll } from "./types/voter/tx";
 import { MsgDeletePoll } from "./types/voter/tx";
+import { MsgCreateVote } from "./types/voter/tx";
 import { MsgUpdateVote } from "./types/voter/tx";
 import { MsgDeleteVote } from "./types/voter/tx";
-import { MsgUpdatePoll } from "./types/voter/tx";
-import { MsgCreateVote } from "./types/voter/tx";
-import { MsgCreatePoll } from "./types/voter/tx";
 const types = [
+    ["/papillon6814.voter.voter.MsgCreatePoll", MsgCreatePoll],
+    ["/papillon6814.voter.voter.MsgUpdatePoll", MsgUpdatePoll],
     ["/papillon6814.voter.voter.MsgDeletePoll", MsgDeletePoll],
+    ["/papillon6814.voter.voter.MsgCreateVote", MsgCreateVote],
     ["/papillon6814.voter.voter.MsgUpdateVote", MsgUpdateVote],
     ["/papillon6814.voter.voter.MsgDeleteVote", MsgDeleteVote],
-    ["/papillon6814.voter.voter.MsgUpdatePoll", MsgUpdatePoll],
-    ["/papillon6814.voter.voter.MsgCreateVote", MsgCreateVote],
-    ["/papillon6814.voter.voter.MsgCreatePoll", MsgCreatePoll],
 ];
 export const MissingWalletError = new Error("wallet is required");
 const registry = new Registry(types);
@@ -29,12 +29,12 @@ const txClient = async (wallet, { addr: addr } = { addr: "http://localhost:26657
     const { address } = (await wallet.getAccounts())[0];
     return {
         signAndBroadcast: (msgs, { fee, memo } = { fee: defaultFee, memo: "" }) => client.signAndBroadcast(address, msgs, fee, memo),
+        msgCreatePoll: (data) => ({ typeUrl: "/papillon6814.voter.voter.MsgCreatePoll", value: data }),
+        msgUpdatePoll: (data) => ({ typeUrl: "/papillon6814.voter.voter.MsgUpdatePoll", value: data }),
         msgDeletePoll: (data) => ({ typeUrl: "/papillon6814.voter.voter.MsgDeletePoll", value: data }),
+        msgCreateVote: (data) => ({ typeUrl: "/papillon6814.voter.voter.MsgCreateVote", value: data }),
         msgUpdateVote: (data) => ({ typeUrl: "/papillon6814.voter.voter.MsgUpdateVote", value: data }),
         msgDeleteVote: (data) => ({ typeUrl: "/papillon6814.voter.voter.MsgDeleteVote", value: data }),
-        msgUpdatePoll: (data) => ({ typeUrl: "/papillon6814.voter.voter.MsgUpdatePoll", value: data }),
-        msgCreateVote: (data) => ({ typeUrl: "/papillon6814.voter.voter.MsgCreateVote", value: data }),
-        msgCreatePoll: (data) => ({ typeUrl: "/papillon6814.voter.voter.MsgCreatePoll", value: data }),
     };
 };
 const queryClient = async ({ addr: addr } = { addr: "http://localhost:1317" }) => {

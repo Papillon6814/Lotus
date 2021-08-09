@@ -53,14 +53,14 @@ export default {
     },
     polls() {
       return (
-        this.$store.getters["cosmonaut.voter.voter/getPollAll"]({
+        this.$store.getters["papillon6814.voter.voter/getPollAll"]({
           params: {}
         })?.Poll ?? []
       );
     },
     votes() {
       return (
-        this.$store.getters["cosmonaut.voter.voter/getVoteAll"]({
+        this.$store.getters["papillon6814.voter.voter/getVoteAll"]({
           params: {}
         })?.Vote ?? []
       );
@@ -74,11 +74,11 @@ export default {
     async submit(pollID, option) {
       
       const value = { creator: this.currentAccount, pollID, option };
-      await this.$store.dispatch("cosmonaut.voter.voter/sendMsgCreateVote", {
+      await this.$store.dispatch("papillon6814.voter.voter/sendMsgCreateVote", {
         value,
         fee: [],
       });
-      await this.$store.dispatch("cosmonaut.voter.voter/QueryPollAll", {
+      await this.$store.dispatch("papillon6814.voter.voter/QueryPollAll", {
         options: { subscribe: true, all: true },
         params: {},
       });
